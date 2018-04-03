@@ -1,34 +1,37 @@
 {
-	"name" : "philkra/elastic-apm-php-agent",
-	"license": "MIT",
-	"require" : {
-		"php" : ">= 7.0",
-		"guzzlehttp/guzzle": "6.*",
-		"ramsey/uuid": "^3.7",
-		"ralouphie/getallheaders": "2.0.5",
-		"ext-curl" : "*",
-		"ext-xdebug": "*"
-	},
-	"require-dev" : {
-		"phpunit/phpunit" : "6.*"
-	},
-	"autoload" : {
-		"psr-4" : {
-			"PhilKra\\": "src/"
-		}
-	},
-	"autoload-dev": {
+  "name": "hotrush/elastic-apm-php-agent",
+  "license": "MIT",
+  "require": {
+    "php": ">= 7.0",
+    "guzzlehttp/guzzle": "6.*",
+    "ramsey/uuid": "^3.7",
+    "ralouphie/getallheaders": "2.0.5",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.*"
+  },
+  "autoload": {
     "psr-4": {
-        "PhilKra\\Tests\\": "tests/"
+      "PhilKra\\": "src/"
     }
   },
-	"config" : {
-		"optimize-autoloader" : true
-	},
-	"authors" : [{
-			"name" : "Philip Krauss",
-			"email" : "philip@philipkrauss.at",
-			"homepage" : "https://github.com/philkra/elastic-apm-agent-php"
-		}
-	]
+  "autoload-dev": {
+    "psr-4": {
+      "PhilKra\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "suggest": {
+    "ext-xdebug": "PHP debug extension"
+  },
+  "authors": [
+    {
+      "name": "Philip Krauss",
+      "email": "philip@philipkrauss.at",
+      "homepage": "https://github.com/philkra/elastic-apm-agent-php"
+    }
+  ]
 }

@@ -1,68 +1,72 @@
 <?php
+
 namespace PhilKra\Tests;
 
 use \PhilKra\Agent;
-use \PhilKra\Transaction\Summary;
 use \PHPUnit\Framework\TestCase;
 
 /**
  * Test Case for @see \PhilKra\Agent
  */
-final class AgentTest extends TestCase {
+final class AgentTest extends TestCase
+{
 
-  /**
-   * @covers \PhilKra\Agent::__construct
-   * @covers \PhilKra\Agent::startTransaction
-   * @covers \PhilKra\Agent::stopTransaction
-   * @covers \PhilKra\Agent::getTransaction
-   */
-  public function testStartAndStopATransaction() {
-    $agent = new Agent( [ 'appName' => 'phpunit_1' ] );
+    /**
+     * @covers \PhilKra\Agent::__construct
+     * @covers \PhilKra\Agent::startTransaction
+     * @covers \PhilKra\Agent::stopTransaction
+     * @covers \PhilKra\Agent::getTransaction
+     */
+    public function testStartAndStopATransaction()
+    {
+        $agent = new Agent(['appName' => 'phpunit_1']);
 
-    // Create a Transaction, wait and Stop it
-    $name = 'trx';
-    $agent->startTransaction( $name );
-    usleep( 10 );
-    $agent->stopTransaction( $name );
+        // Create a Transaction, wait and Stop it
+        $name = 'trx';
+        $agent->startTransaction($name);
+        usleep(10);
+        $agent->stopTransaction($name);
 
-    // Transaction Summary must be populated
-    $summary = $agent->getTransaction( $name )->getSummary();
+        // Transaction Summary must be populated
+        $summary = $agent->getTransaction($name)->getSummary();
 
-    $this->assertArrayHasKey( 'duration', $summary );
-    $this->assertArrayHasKey( 'backtrace', $summary );
+        $this->assertArrayHasKey('duration', $summary);
+        $this->assertArrayHasKey('backtrace', $summary);
 
-    $this->assertGreaterThanOrEqual( 10, $summary['duration'] );
-    $this->assertNotEmpty( $summary['backtrace'] );
-  }
+        $this->assertGreaterThanOrEqual(10, $summary['duration']);
+        $this->assertNotEmpty($summary['backtrace']);
+    }
 
-  /**
-   * @depends testStartAndStopATransaction
-   *
-   * @expectedException \PhilKra\Exception\Transaction\UnknownTransactionException
-   *
-   * @covers \PhilKra\Agent::__construct
-   * @covers \PhilKra\Agent::getTransaction
-   */
-  public function testForceErrorOnUnknownTransaction() {
-    $agent = new Agent( [ 'appName' => 'phpunit_x' ] );
+    /**
+     * @depends testStartAndStopATransaction
+     *
+     * @expectedException \PhilKra\Exception\Transaction\UnknownTransactionException
+     *
+     * @covers  \PhilKra\Agent::__construct
+     * @covers  \PhilKra\Agent::getTransaction
+     */
+    public function testForceErrorOnUnknownTransaction()
+    {
+        $agent = new Agent(['appName' => 'phpunit_x']);
 
-    // Let it go boom!
-    $agent->getTransaction( 'unknown' );
-  }
+        // Let it go boom!
+        $agent->getTransaction('unknown');
+    }
 
-  /**
-   * @depends testForceErrorOnUnknownTransaction
-   *
-   * @expectedException \PhilKra\Exception\Transaction\UnknownTransactionException
-   *
-   * @covers \PhilKra\Agent::__construct
-   * @covers \PhilKra\Agent::stopTransaction
-   */
-  public function testForceErrorOnUnstartedTransaction() {
-    $agent = new Agent( [ 'appName' => 'phpunit_2' ] );
+    /**
+     * @depends testForceErrorOnUnknownTransaction
+     *
+     * @expectedException \PhilKra\Exception\Transaction\UnknownTransactionException
+     *
+     * @covers  \PhilKra\Agent::__construct
+     * @covers  \PhilKra\Agent::stopTransaction
+     */
+    public function testForceErrorOnUnstartedTransaction()
+    {
+        $agent = new Agent(['appName' => 'phpunit_2']);
 
-    // Stop an unstarted Transaction and let it go boom!
-    $agent->stopTransaction( 'unknown' );
-  }
+        // Stop an unstarted Transaction and let it go boom!
+        $agent->stopTransaction('unknown');
+    }
 
 }
