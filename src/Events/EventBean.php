@@ -62,6 +62,7 @@ class EventBean
         // Generate Random UUID
         $this->id = Uuid::uuid4()->toString();
 
+        $this->request = new Request();
         $this->contexts = $contexts ?: new Contexts();
 
         // Get UTC timestamp of Now
