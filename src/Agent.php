@@ -2,6 +2,7 @@
 
 namespace PhilKra;
 
+use PhilKra\Events\Context\Contexts;
 use \PhilKra\Stores\ErrorsStore;
 use \PhilKra\Stores\TransactionsStore;
 use \PhilKra\Events\Transaction;
@@ -27,7 +28,7 @@ class Agent
      *
      * @var string
      */
-    const VERSION = '0.1.2';
+    const VERSION = '0.1.4';
 
     /**
      * Agent Name
@@ -67,29 +68,25 @@ class Agent
     /**
      * Common/Shared Contexts for Errors and Transactions
      *
-     * @var array
+     * @var Contexts
      */
-    private $sharedContext = [
-        'user' => [],
-        'custom' => [],
-        'tags' => []
-    ];
+    private $sharedContext;
 
     /**
      * Setup the APM Agent
      *
-     * @param array $config
-     * @param array $sharedContext Set shared contexts such as user and tags
+     * @param array     $config
+     * @param Contexts  $sharedContext Set shared contexts such as user and tags
      */
-    public function __construct(array $config, array $sharedContext = [])
+    public function __construct(array $config, Contexts $sharedContext = null)
     {
         // Init Agent Config
         $this->config = new Config($config);
 
         // Init the Shared Context
-        $this->sharedContext['user'] = $sharedContext['user'] ?? [];
-        $this->sharedContext['custom'] = $sharedContext['custom'] ?? [];
-        $this->sharedContext['tags'] = $sharedContext['tags'] ?? [];
+        if ($sharedContext) {
+            $this->sharedContext = $sharedContext;
+        }
 
         // Initialize Event Stores
         $this->transactionsStore = new TransactionsStore();

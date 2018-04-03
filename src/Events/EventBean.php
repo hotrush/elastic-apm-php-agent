@@ -2,6 +2,7 @@
 
 namespace PhilKra\Events;
 
+use PhilKra\Events\Context\Contexts;
 use PhilKra\Events\Context\Custom;
 use PhilKra\Events\Context\Request;
 use PhilKra\Events\Context\Tags;
@@ -45,36 +46,23 @@ class EventBean
     private $request;
 
     /**
-     * @var User
+     * @var Contexts
      */
-    private $user;
-
-    /**
-     * @var Tags
-     */
-    private $tags;
-
-    /**
-     * @var Custom
-     */
-    private $custom;
+    private $contexts;
 
     /**
      * Init the Event with the Timestamp and UUID
      *
      * @link https://github.com/philkra/elastic-apm-php-agent/issues/3
      *
-     * @param array $contexts
+     * @param Contexts $contexts
      */
-    public function __construct(array $contexts)
+    public function __construct(Contexts $contexts = null)
     {
         // Generate Random UUID
         $this->id = Uuid::uuid4()->toString();
 
-        $this->request = new Request();
-        $this->user = new User();
-        $this->tags = new Tags();
-        $this->custom = new Custom();
+        $this->contexts = $contexts ?: new Contexts();
 
         // Get UTC timestamp of Now
         $timestamp = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)));
@@ -143,27 +131,11 @@ class EventBean
     }
 
     /**
-     * @return User
+     * @return Contexts
      */
-    public function getUser(): User
+    public function getContexts(): Contexts
     {
-        return $this->user;
-    }
-
-    /**
-     * @return Tags
-     */
-    public function getTags(): Tags
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @return Custom
-     */
-    public function getCustom(): Custom
-    {
-        return $this->custom;
+        return $this->contexts;
     }
 
     /**
@@ -179,19 +151,7 @@ class EventBean
             'request' => $this->request->toArray(),
         ];
 
-        if (!$this->user->isEmpty()) {
-            $context['user'] = $this->user->toArray();
-        }
-
-        if (!$this->tags->isEmpty()) {
-            $context['tags'] = $this->tags->toArray();
-        }
-
-        if (!$this->custom->isEmpty()) {
-            $context['custom'] = $this->custom->toArray();
-        }
-
-        return $context;
+        return $context + $this->contexts->toArray();
     }
 
 }

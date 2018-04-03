@@ -2,6 +2,7 @@
 
 namespace PhilKra\Events;
 
+use PhilKra\Events\Context\Contexts;
 use \PhilKra\Helper\Timer;
 
 /**
@@ -42,10 +43,10 @@ class Transaction extends EventBean implements \JsonSerializable
     /**
      * Create the Transaction
      *
-     * @param string $name
-     * @param array $contexts
+     * @param string    $name
+     * @param Contexts  $contexts
      */
-    public function __construct(string $name, array $contexts)
+    public function __construct(string $name, Contexts $contexts = null)
     {
         parent::__construct($contexts);
         $this->setTransactionName($name);

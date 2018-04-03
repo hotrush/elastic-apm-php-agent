@@ -1,6 +1,7 @@
 <?php
 
 namespace PhilKra\Events;
+use PhilKra\Events\Context\Contexts;
 
 /**
  *
@@ -23,9 +24,9 @@ class Error extends EventBean implements \JsonSerializable
 
     /**
      * @param \Throwable    $throwable
-     * @param array         $contexts
+     * @param Contexts      $contexts
      */
-    public function __construct(\Throwable $throwable, array $contexts)
+    public function __construct(\Throwable $throwable, Contexts $contexts = null)
     {
         parent::__construct($contexts);
         $this->throwable = $throwable;
