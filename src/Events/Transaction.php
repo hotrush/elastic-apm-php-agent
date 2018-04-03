@@ -1,9 +1,9 @@
 <?php
 
-namespace PhilKra\Events;
+namespace Hotrush\Events;
 
-use PhilKra\Events\Context\Contexts;
-use \PhilKra\Helper\Timer;
+use Hotrush\Context\ContextsRegistry;
+use \Hotrush\Helper\Timer;
 
 /**
  *
@@ -25,30 +25,26 @@ class Transaction extends EventBean implements \JsonSerializable
     /**
      * Transaction Timer
      *
-     * @var \PhilKra\Helper\Timer
+     * @var \Hotrush\Helper\Timer
      */
     private $timer;
 
     /**
-     * Summary of this Transaction
+     * Transaction duration
      *
-     * @var array
+     * @var float
      */
-    private $summary = [
-        'duration' => 0.0,
-        'backtrace' => null,
-        'headers' => []
-    ];
+    private $duration = 0.0;
 
     /**
      * Create the Transaction
      *
-     * @param string    $name
-     * @param Contexts  $contexts
+     * @param string            $name
+     * @param ContextsRegistry  $contextsRegistry
      */
-    public function __construct(string $name, Contexts $contexts = null)
+    public function __construct(string $name, ContextsRegistry $contextsRegistry = null)
     {
-        parent::__construct($contexts);
+        parent::__construct($contextsRegistry);
         $this->setTransactionName($name);
         $this->timer = new Timer();
     }
@@ -73,10 +69,7 @@ class Transaction extends EventBean implements \JsonSerializable
         // Stop the Timer
         $this->timer->stop();
 
-        // Store Summary
-        $this->summary['duration'] = round($this->timer->getDuration(), 3);
-        $this->summary['headers'] = function_exists('xdebug_get_headers') ? xdebug_get_headers() : headers_list();
-        $this->summary['backtrace'] = debug_backtrace();
+        $this->duration = round($this->timer->getDuration(), 3);
     }
 
     /**
@@ -102,13 +95,11 @@ class Transaction extends EventBean implements \JsonSerializable
     }
 
     /**
-     * Get the Summary of this Transaction
-     *
-     * @return array
+     * @return float
      */
-    public function getSummary(): array
+    public function getDuration(): float
     {
-        return $this->summary;
+        return $this->duration;
     }
 
     /**
@@ -122,7 +113,7 @@ class Transaction extends EventBean implements \JsonSerializable
             'id' => $this->getId(),
             'timestamp' => $this->getTimestamp(),
             'name' => $this->getTransactionName(),
-            'duration' => $this->summary['duration'],
+            'duration' => $this->getDuration(),
             'type' => $this->getMetaType(),
             'result' => $this->getMetaResult(),
             'context' => $this->getContext(),

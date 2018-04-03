@@ -1,9 +1,19 @@
 <?php
 
-namespace PhilKra\Events\Context;
+namespace Hotrush\Context;
 
-class Contexts
+use Hotrush\Context\Entities\Request;
+use Hotrush\Context\Entities\User;
+use Hotrush\Context\Entities\Tags;
+use Hotrush\Context\Entities\Custom;
+
+class ContextsRegistry
 {
+    /**
+     * @var Request
+     */
+    private $request;
+
     /**
      * @var User
      */
@@ -24,6 +34,7 @@ class Contexts
      */
     public function __construct()
     {
+        $this->request = new Request();
         $this->user = new User();
         $this->tags = new Tags();
         $this->custom = new Custom();
@@ -58,7 +69,9 @@ class Contexts
      */
     public function toArray(): array
     {
-        $contexts = [];
+        $contexts = [
+            'request' => $this->request->toArray(),
+        ];
 
         if (!$this->user->isEmpty()) {
             $contexts['user'] = $this->user->toArray();

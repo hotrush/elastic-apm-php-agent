@@ -1,25 +1,25 @@
 <?php
 
-namespace PhilKra\Tests\Stores;
+namespace Hotrush\Tests\Stores;
 
-use \PhilKra\Stores\ErrorsStore;
-use \PhilKra\Events\Error;
+use \Hotrush\Stores\ErrorsStore;
+use \Hotrush\Events\Error;
 use \PHPUnit\Framework\TestCase;
 
 /**
- * Test Case for @see \PhilKra\Stores\ErrorsStore
+ * Test Case for @see \Hotrush\Stores\ErrorsStore
  */
 final class ErrorsStoreTest extends TestCase
 {
 
     /**
-     * @covers \PhilKra\Stores\ErrorsStoreTest::register
-     * @covers \PhilKra\Stores\ErrorsStoreTest::list
+     * @covers \Hotrush\Stores\ErrorsStoreTest::register
+     * @covers \Hotrush\Stores\ErrorsStoreTest::list
      */
     public function testCaptureErrorExceptionAndListIt()
     {
         $store = new ErrorsStore();
-        $error = new Error(new \Error('unit-test'), []);
+        $error = new Error(new \Error('unit-test'));
 
         // Must be Empty
         $this->assertTrue($store->isEmpty());

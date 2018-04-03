@@ -1,13 +1,9 @@
 <?php
 
-namespace PhilKra\Events;
+namespace Hotrush\Events;
 
-use PhilKra\Events\Context\Contexts;
-use PhilKra\Events\Context\Custom;
-use PhilKra\Events\Context\Request;
-use PhilKra\Events\Context\Tags;
-use PhilKra\Events\Context\User;
 use \Ramsey\Uuid\Uuid;
+use Hotrush\Context\ContextsRegistry;
 
 /**
  *
@@ -41,29 +37,23 @@ class EventBean
     ];
 
     /**
-     * @var Request
+     * @var ContextsRegistry
      */
-    private $request;
-
-    /**
-     * @var Contexts
-     */
-    private $contexts;
+    private $contextsRegistry;
 
     /**
      * Init the Event with the Timestamp and UUID
      *
-     * @link https://github.com/philkra/elastic-apm-php-agent/issues/3
+     * @link https://github.com/Hotrush/elastic-apm-php-agent/issues/3
      *
-     * @param Contexts $contexts
+     * @param ContextsRegistry $contextsRegistry
      */
-    public function __construct(Contexts $contexts = null)
+    public function __construct(ContextsRegistry $contextsRegistry = null)
     {
         // Generate Random UUID
         $this->id = Uuid::uuid4()->toString();
 
-        $this->request = new Request();
-        $this->contexts = $contexts ?: new Contexts();
+        $this->contextsRegistry = $contextsRegistry ?: new ContextsRegistry();
 
         // Get UTC timestamp of Now
         $timestamp = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)));
@@ -124,19 +114,11 @@ class EventBean
     }
 
     /**
-     * @return Request
+     * @return ContextsRegistry
      */
-    public function getRequest(): Request
+    public function getContextRegistry(): ContextsRegistry
     {
-        return $this->request;
-    }
-
-    /**
-     * @return Contexts
-     */
-    public function getContexts(): Contexts
-    {
-        return $this->contexts;
+        return $this->contextsRegistry;
     }
 
     /**
@@ -148,11 +130,7 @@ class EventBean
      */
     protected final function getContext(): array
     {
-        $context = [
-            'request' => $this->request->toArray(),
-        ];
-
-        return $context + $this->contexts->toArray();
+        return $this->contextsRegistry->toArray();
     }
 
 }

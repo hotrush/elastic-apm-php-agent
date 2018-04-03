@@ -1,22 +1,22 @@
 <?php
 
-namespace PhilKra\Tests\Helper;
+namespace Hotrush\Tests\Helper;
 
-use \PhilKra\Agent;
-use \PhilKra\Helper\Config;
+use \Hotrush\Agent;
+use \Hotrush\Helper\Config;
 use \PHPUnit\Framework\TestCase;
 
 /**
- * Test Case for @see \PhilKra\Helper\Config
+ * Test Case for @see \Hotrush\Helper\Config
  */
 final class ConfigTest extends TestCase
 {
 
     /**
-     * @covers \PhilKra\Helper\Config::__construct
-     * @covers \PhilKra\Agent::getConfig
-     * @covers \PhilKra\Helper\Config::getDefaultConfig
-     * @covers \PhilKra\Helper\Config::asArray
+     * @covers \Hotrush\Helper\Config::__construct
+     * @covers \Hotrush\Agent::getConfig
+     * @covers \Hotrush\Helper\Config::getDefaultConfig
+     * @covers \Hotrush\Helper\Config::asArray
      */
     public function testControlDefaultConfig()
     {

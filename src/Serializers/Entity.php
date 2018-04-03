@@ -1,9 +1,9 @@
 <?php
 
-namespace PhilKra\Serializers;
+namespace Hotrush\Serializers;
 
-use \PhilKra\Agent;
-use \PhilKra\Helper\Config;
+use \Hotrush\Agent;
+use \Hotrush\Helper\Config;
 
 /**
  *
@@ -14,7 +14,7 @@ class Entity
 {
 
     /**
-     * @var \PhilKra\Helper\Config
+     * @var \Hotrush\Helper\Config
      */
     protected $config;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace PhilKra\Stores;
+namespace Hotrush\Stores;
 
-use \PhilKra\Events\Error;
+use \Hotrush\Events\Error;
 
 /**
  *
@@ -15,7 +15,7 @@ class ErrorsStore extends Store
     /**
      * Register an Error Event
      *
-     * @param \PhilKra\Events\Error $error
+     * @param \Hotrush\Events\Error $error
      * @return void
      */
     public function register(Error $error)

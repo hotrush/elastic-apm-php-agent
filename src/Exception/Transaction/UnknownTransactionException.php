@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilKra\Exception\Transaction;
+namespace Hotrush\Exception\Transaction;
 
 /**
  * Trying to fetch an unregistered Transaction

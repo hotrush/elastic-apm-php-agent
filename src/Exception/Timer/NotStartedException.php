@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilKra\Exception\Timer;
+namespace Hotrush\Exception\Timer;
 
 /**
  * Trying to stop a Timer that has not been started

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilKra\Exception\Timer;
+namespace Hotrush\Exception\Timer;
 
 /**
  * Trying to get the Duration of a running Timer

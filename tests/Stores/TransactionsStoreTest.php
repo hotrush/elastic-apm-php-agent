@@ -1,26 +1,26 @@
 <?php
 
-namespace PhilKra\Tests\Stores;
+namespace Hotrush\Tests\Stores;
 
-use \PhilKra\Stores\TransactionsStore;
-use \PhilKra\Events\Transaction;
+use \Hotrush\Stores\TransactionsStore;
+use \Hotrush\Events\Transaction;
 use \PHPUnit\Framework\TestCase;
 
 /**
- * Test Case for @see \PhilKra\Stores\TransactionsStore
+ * Test Case for @see \Hotrush\Stores\TransactionsStore
  */
 final class TransactionsStoreTest extends TestCase
 {
 
     /**
-     * @covers \PhilKra\Stores\TransactionsStore::register
-     * @covers \PhilKra\Stores\TransactionsStore::get
+     * @covers \Hotrush\Stores\TransactionsStore::register
+     * @covers \Hotrush\Stores\TransactionsStore::get
      */
     public function testTransactionRegistrationAndFetch()
     {
         $store = new TransactionsStore();
         $name = 'test';
-        $trx = new Transaction($name, []);
+        $trx = new Transaction($name);
 
         // Must be Empty
         $this->assertTrue($store->isEmpty());
@@ -40,15 +40,15 @@ final class TransactionsStoreTest extends TestCase
     /**
      * @depends testTransactionRegistrationAndFetch
      *
-     * @expectedException \PhilKra\Exception\Transaction\DuplicateTransactionNameException
+     * @expectedException \Hotrush\Exception\Transaction\DuplicateTransactionNameException
      *
-     * @covers  \PhilKra\Stores\TransactionsStore::register
+     * @covers  \Hotrush\Stores\TransactionsStore::register
      */
     public function testDuplicateTransactionRegistration()
     {
         $store = new TransactionsStore();
         $name = 'test';
-        $trx = new Transaction($name, []);
+        $trx = new Transaction($name);
 
         // Store the Transaction again to force an Exception
         $store->register($trx);
@@ -58,7 +58,7 @@ final class TransactionsStoreTest extends TestCase
     /**
      * @depends testTransactionRegistrationAndFetch
      *
-     * @covers  \PhilKra\Stores\TransactionsStore::get
+     * @covers  \Hotrush\Stores\TransactionsStore::get
      */
     public function testFetchUnknownTransaction()
     {

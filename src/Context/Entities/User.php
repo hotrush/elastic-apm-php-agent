@@ -1,8 +1,8 @@
 <?php
 
-namespace PhilKra\Events\Context;
+namespace Hotrush\Context\Entities;
 
-class User implements ContextInterface
+class User implements EntityInterface
 {
     /**
      * @var string
@@ -57,7 +57,7 @@ class User implements ContextInterface
      */
     public function isEmpty(): bool
     {
-        return $this->id || $this->username || $this->email;
+        return !$this->id && !$this->username && !$this->email;
     }
 
     /**

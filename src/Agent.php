@@ -1,17 +1,16 @@
 <?php
 
-namespace PhilKra;
+namespace Hotrush;
 
-use PhilKra\Events\Context\Contexts;
-use \PhilKra\Stores\ErrorsStore;
-use \PhilKra\Stores\TransactionsStore;
-use \PhilKra\Events\Transaction;
-use \PhilKra\Events\Error;
-use \PhilKra\Helper\Timer;
-use \PhilKra\Helper\Config;
-use \PhilKra\Middleware\Connector;
-use \PhilKra\Exception\Transaction\DuplicateTransactionNameException;
-use \PhilKra\Exception\Transaction\UnknownTransactionException;
+use Hotrush\Context\ContextsRegistry;
+use Hotrush\Stores\ErrorsStore;
+use Hotrush\Stores\TransactionsStore;
+use Hotrush\Events\Transaction;
+use Hotrush\Events\Error;
+use Hotrush\Helper\Timer;
+use Hotrush\Helper\Config;
+use Hotrush\Middleware\Connector;
+use Hotrush\Exception\Transaction\UnknownTransactionException;
 
 /**
  *
@@ -28,7 +27,7 @@ class Agent
      *
      * @var string
      */
-    const VERSION = '0.1.4';
+    const VERSION = '0.2.0';
 
     /**
      * Agent Name
@@ -40,52 +39,52 @@ class Agent
     /**
      * Config Store
      *
-     * @var \PhilKra\Helper\Config
+     * @var \Hotrush\Helper\Config
      */
     private $config;
 
     /**
      * Transactions Store
      *
-     * @var \PhilKra\Stores\TransactionsStore
+     * @var \Hotrush\Stores\TransactionsStore
      */
     private $transactionsStore;
 
     /**
      * Error Events Store
      *
-     * @var \PhilKra\Stores\ErrorsStore
+     * @var \Hotrush\Stores\ErrorsStore
      */
     private $errorsStore;
 
     /**
      * Apm Timer
      *
-     * @var \PhilKra\Helper\Timer
+     * @var \Hotrush\Helper\Timer
      */
     private $timer;
 
     /**
      * Common/Shared Contexts for Errors and Transactions
      *
-     * @var Contexts
+     * @var ContextsRegistry
      */
-    private $sharedContext;
+    private $sharedContextRegistry;
 
     /**
      * Setup the APM Agent
      *
-     * @param array     $config
-     * @param Contexts  $sharedContext Set shared contexts such as user and tags
+     * @param array             $config
+     * @param ContextsRegistry  $sharedContextRegistry Set shared contexts such as user and tags
      */
-    public function __construct(array $config, Contexts $sharedContext = null)
+    public function __construct(array $config, ContextsRegistry $sharedContextRegistry = null)
     {
         // Init Agent Config
         $this->config = new Config($config);
 
         // Init the Shared Context
-        if ($sharedContext) {
-            $this->sharedContext = $sharedContext;
+        if ($sharedContextRegistry) {
+            $this->sharedContextRegistry = $sharedContextRegistry;
         }
 
         // Initialize Event Stores
@@ -100,7 +99,7 @@ class Agent
     /**
      * Start the Transaction capturing
      *
-     * @throws \PhilKra\Exception\Transaction\DuplicateTransactionNameException
+     * @throws \Hotrush\Exception\Transaction\DuplicateTransactionNameException
      *
      * @param string $name
      *
@@ -109,7 +108,7 @@ class Agent
     public function startTransaction(string $name)
     {
         // Create and Store Transaction
-        $this->transactionsStore->register(new Transaction($name, $this->sharedContext));
+        $this->transactionsStore->register(new Transaction($name, $this->sharedContextRegistry));
 
         // Start the Transaction
         $this->transactionsStore->fetch($name)->start();
@@ -118,7 +117,7 @@ class Agent
     /**
      * Stop the Transaction
      *
-     * @throws \PhilKra\Exception\Transaction\UnknownTransactionException
+     * @throws \Hotrush\Exception\Transaction\UnknownTransactionException
      *
      * @param string $name
      * @param array $meta , Def: []
@@ -134,9 +133,9 @@ class Agent
     /**
      * Get a Transaction
      *
-     * @throws \PhilKra\Exception\Transaction\UnknownTransactionException
+     * @throws \Hotrush\Exception\Transaction\UnknownTransactionException
      * @param string $name
-     * @return mixed \PhilKra\Events\Transaction|null
+     * @return mixed \Hotrush\Events\Transaction|null
      */
     public function getTransaction(string $name)
     {
@@ -157,15 +156,15 @@ class Agent
      */
     public function captureThrowable(\Throwable $thrown)
     {
-        $this->errorsStore->register(new Error($thrown, $this->sharedContext));
+        $this->errorsStore->register(new Error($thrown, $this->sharedContextRegistry));
     }
 
     /**
      * Get the Agent Config
      *
-     * @return \PhilKra\Helper\Config
+     * @return \Hotrush\Helper\Config
      */
-    public function getConfig(): \PhilKra\Helper\Config
+    public function getConfig(): \Hotrush\Helper\Config
     {
         return $this->config;
     }

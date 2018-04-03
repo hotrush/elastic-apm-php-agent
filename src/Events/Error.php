@@ -1,7 +1,8 @@
 <?php
 
-namespace PhilKra\Events;
-use PhilKra\Events\Context\Contexts;
+namespace Hotrush\Events;
+
+use Hotrush\Context\ContextsRegistry;
 
 /**
  *
@@ -23,12 +24,12 @@ class Error extends EventBean implements \JsonSerializable
     private $throwable;
 
     /**
-     * @param \Throwable    $throwable
-     * @param Contexts      $contexts
+     * @param \Throwable        $throwable
+     * @param ContextsRegistry  $contextsRegistry
      */
-    public function __construct(\Throwable $throwable, Contexts $contexts = null)
+    public function __construct(\Throwable $throwable, ContextsRegistry $contextsRegistry = null)
     {
-        parent::__construct($contexts);
+        parent::__construct($contextsRegistry);
         $this->throwable = $throwable;
     }
 

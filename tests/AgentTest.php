@@ -1,21 +1,21 @@
 <?php
 
-namespace PhilKra\Tests;
+namespace Hotrush\Tests;
 
-use \PhilKra\Agent;
+use \Hotrush\Agent;
 use \PHPUnit\Framework\TestCase;
 
 /**
- * Test Case for @see \PhilKra\Agent
+ * Test Case for @see \Hotrush\Agent
  */
 final class AgentTest extends TestCase
 {
 
     /**
-     * @covers \PhilKra\Agent::__construct
-     * @covers \PhilKra\Agent::startTransaction
-     * @covers \PhilKra\Agent::stopTransaction
-     * @covers \PhilKra\Agent::getTransaction
+     * @covers \Hotrush\Agent::__construct
+     * @covers \Hotrush\Agent::startTransaction
+     * @covers \Hotrush\Agent::stopTransaction
+     * @covers \Hotrush\Agent::getTransaction
      */
     public function testStartAndStopATransaction()
     {
@@ -27,23 +27,18 @@ final class AgentTest extends TestCase
         usleep(10);
         $agent->stopTransaction($name);
 
-        // Transaction Summary must be populated
-        $summary = $agent->getTransaction($name)->getSummary();
+        $duration = $agent->getTransaction($name)->getDuration();
 
-        $this->assertArrayHasKey('duration', $summary);
-        $this->assertArrayHasKey('backtrace', $summary);
-
-        $this->assertGreaterThanOrEqual(10, $summary['duration']);
-        $this->assertNotEmpty($summary['backtrace']);
+        $this->assertGreaterThanOrEqual(10, $duration);
     }
 
     /**
      * @depends testStartAndStopATransaction
      *
-     * @expectedException \PhilKra\Exception\Transaction\UnknownTransactionException
+     * @expectedException \Hotrush\Exception\Transaction\UnknownTransactionException
      *
-     * @covers  \PhilKra\Agent::__construct
-     * @covers  \PhilKra\Agent::getTransaction
+     * @covers  \Hotrush\Agent::__construct
+     * @covers  \Hotrush\Agent::getTransaction
      */
     public function testForceErrorOnUnknownTransaction()
     {
@@ -56,10 +51,10 @@ final class AgentTest extends TestCase
     /**
      * @depends testForceErrorOnUnknownTransaction
      *
-     * @expectedException \PhilKra\Exception\Transaction\UnknownTransactionException
+     * @expectedException \Hotrush\Exception\Transaction\UnknownTransactionException
      *
-     * @covers  \PhilKra\Agent::__construct
-     * @covers  \PhilKra\Agent::stopTransaction
+     * @covers  \Hotrush\Agent::__construct
+     * @covers  \Hotrush\Agent::stopTransaction
      */
     public function testForceErrorOnUnstartedTransaction()
     {

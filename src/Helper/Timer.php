@@ -1,9 +1,9 @@
 <?php
 
-namespace PhilKra\Helper;
+namespace Hotrush\Helper;
 
-use \PhilKra\Exception\Timer\NotStartedException;
-use \PhilKra\Exception\Timer\NotStoppedException;
+use \Hotrush\Exception\Timer\NotStartedException;
+use \Hotrush\Exception\Timer\NotStoppedException;
 
 /**
  * Timer for Duration tracing
@@ -38,7 +38,7 @@ class Timer
     /**
      * Stop the Timer
      *
-     * @throws \PhilKra\Exception\Timer\NotStartedException
+     * @throws \Hotrush\Exception\Timer\NotStartedException
      * @return void
      */
     public function stop()
@@ -53,7 +53,7 @@ class Timer
     /**
      * Get the elapsed Duration of this Timer
      *
-     * @throws \PhilKra\Exception\Timer\NotStoppedException
+     * @throws \Hotrush\Exception\Timer\NotStoppedException
      * @return float
      */
     public function getDuration(): float
@@ -68,7 +68,7 @@ class Timer
     /**
      * Get the current elapsed Interval of the Timer
      *
-     * @throws \PhilKra\Exception\Timer\NotStartedException
+     * @throws \Hotrush\Exception\Timer\NotStartedException
      * @return float
      */
     public function getElapsed(): float

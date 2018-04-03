@@ -1,28 +1,60 @@
 <?php
 
-namespace PhilKra\Events\Context;
+namespace Hotrush\Context\Entities;
 
-class Request implements ContextInterface
+class Request implements EntityInterface
 {
+    /**
+     * @var array
+     */
     private $request = [];
 
+    /**
+     * Request constructor.
+     */
     public function __construct()
     {
         $this->extractRequestData();
     }
 
+    /**
+     * @param array $request
+     */
     public function setRequestData(array $request)
     {
         $this->request = array_merge_recursive($this->request, $request);
     }
 
+    /**
+     * @param $keys
+     * @return void
+     */
+    public function removeSensitiveEnvKeys(array $keys)
+    {
+        if ($keys) {
+            $env = $_SERVER;
+
+            $keysArray = array_combine(
+                $keys,
+                array_fill(0, count($keys), '')
+            );
+
+            $this->request['env'] = array_diff_key($env, $keysArray);
+        }
+    }
+
+    /**
+     * Extract request data from $_SERVER and $_COOKIE vars
+     *
+     * @return void
+     */
     private function extractRequestData()
     {
         $headers = array_change_key_case(getallheaders(), CASE_LOWER);
         $serverProtocol = $_SERVER['SERVER_PROTOCOL'] ?? '';
 
         $this->request = [
-            'http_version' => substr($serverProtocol, strpos($serverProtocol, '/')),
+            'http_version' => substr($serverProtocol, strpos($serverProtocol, '/')+1),
             'method' => $_SERVER['REQUEST_METHOD'] ?? 'cli',
             'socket' => [
                 'remote_address' => $_SERVER['REMOTE_ADDR'] ?? '',
@@ -47,12 +79,22 @@ class Request implements ContextInterface
                     : '',
             ],
             'headers' => $headers,
-            'env' => $_SERVER, // @todo blocked env vars
-            'body' => [], // @todo log form data
+            'env' => $_SERVER,
             'cookies' => $_COOKIE,
         ];
     }
 
+    /**
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return $this->request;

@@ -1,12 +1,12 @@
 <?php
 
-namespace PhilKra\Middleware;
+namespace Hotrush\Middleware;
 
-use \PhilKra\Agent;
-use \PhilKra\Stores\ErrorsStore;
-use \PhilKra\Stores\TransactionsStore;
-use \PhilKra\Serializers\Errors;
-use \PhilKra\Serializers\Transactions;
+use \Hotrush\Agent;
+use \Hotrush\Stores\ErrorsStore;
+use \Hotrush\Stores\TransactionsStore;
+use \Hotrush\Serializers\Errors;
+use \Hotrush\Serializers\Transactions;
 
 use \GuzzleHttp\Psr7\Request;
 use \GuzzleHttp\Client;
@@ -22,7 +22,7 @@ class Connector
     /**
      * Agent Config
      *
-     * @var \PhilKra\Helper\Config
+     * @var \Hotrush\Helper\Config
      */
     private $config;
 
@@ -32,9 +32,9 @@ class Connector
     private $client;
 
     /**
-     * @param \PhilKra\Helper\Config $config
+     * @param \Hotrush\Helper\Config $config
      */
-    public function __construct(\PhilKra\Helper\Config $config)
+    public function __construct(\Hotrush\Helper\Config $config)
     {
         $this->config = $config;
         $this->client = new Client();
@@ -43,7 +43,7 @@ class Connector
     /**
      * Push the Transactions to APM Server
      *
-     * @param \PhilKra\Stores\TransactionsStore $store
+     * @param \Hotrush\Stores\TransactionsStore $store
      *
      * @return bool
      */
@@ -63,7 +63,7 @@ class Connector
     /**
      * Push the Errors to APM Server
      *
-     * @param \PhilKra\Stores\ErrorsStore $store
+     * @param \Hotrush\Stores\ErrorsStore $store
      *
      * @return bool
      */

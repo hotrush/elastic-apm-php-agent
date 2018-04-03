@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilKra\Exception;
+namespace Hotrush\Exception;
 
 /**
  * Application Tear Up has missing App Name in Config

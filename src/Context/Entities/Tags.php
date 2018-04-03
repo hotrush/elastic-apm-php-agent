@@ -1,8 +1,8 @@
 <?php
 
-namespace PhilKra\Events\Context;
+namespace Hotrush\Context\Entities;
 
-class Tags implements ContextInterface
+class Tags implements EntityInterface
 {
     /**
      * @var array

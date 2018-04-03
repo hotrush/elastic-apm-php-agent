@@ -1,8 +1,8 @@
 <?php
 
-namespace PhilKra\Events\Context;
+namespace Hotrush\Context\Entities;
 
-class Custom implements ContextInterface
+class Custom implements EntityInterface
 {
     /**
      * @var array

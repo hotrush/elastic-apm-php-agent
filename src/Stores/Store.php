@@ -1,6 +1,6 @@
 <?php
 
-namespace PhilKra\Stores;
+namespace Hotrush\Stores;
 
 /**
  *
@@ -13,14 +13,14 @@ class Store implements \JsonSerializable
     /**
      * Set of Events
      *
-     * @var array \PhilKra\Events\EventBean[]
+     * @var array \Hotrush\Events\EventBean[]
      */
     protected $store = [];
 
     /**
      * Get all Registered Errors
      *
-     * @return array \PhilKra\Events\EventBean[]
+     * @return array \Hotrush\Events\EventBean[]
      */
     public function list(): array
     {

@@ -1,21 +1,21 @@
 <?php
 
-namespace PhilKra\Tests\Helper;
+namespace Hotrush\Tests\Helper;
 
-use \PhilKra\Helper\Timer;
+use \Hotrush\Helper\Timer;
 use \PHPUnit\Framework\TestCase;
 
 /**
- * Test Case for @see \PhilKra\Helper\Timer
+ * Test Case for @see \Hotrush\Helper\Timer
  */
 final class TimerTest extends TestCase
 {
 
     /**
-     * @covers \PhilKra\Helper\Timer::start
-     * @covers \PhilKra\Helper\Timer::stop
-     * @covers \PhilKra\Helper\Timer::getDuration
-     * @covers \PhilKra\Helper\Timer::toMicro
+     * @covers \Hotrush\Helper\Timer::start
+     * @covers \Hotrush\Helper\Timer::stop
+     * @covers \Hotrush\Helper\Timer::getDuration
+     * @covers \Hotrush\Helper\Timer::toMicro
      */
     public function testCanBeStartedAndStoppedWithDuration()
     {
@@ -32,11 +32,11 @@ final class TimerTest extends TestCase
     /**
      * @depends testCanBeStartedAndStoppedWithDuration
      *
-     * @covers  \PhilKra\Helper\Timer::start
-     * @covers  \PhilKra\Helper\Timer::stop
-     * @covers  \PhilKra\Helper\Timer::getDuration
-     * @covers  \PhilKra\Helper\Timer::getElapsed
-     * @covers  \PhilKra\Helper\Timer::toMicro
+     * @covers  \Hotrush\Helper\Timer::start
+     * @covers  \Hotrush\Helper\Timer::stop
+     * @covers  \Hotrush\Helper\Timer::getDuration
+     * @covers  \Hotrush\Helper\Timer::getElapsed
+     * @covers  \Hotrush\Helper\Timer::toMicro
      */
     public function testGetElapsedDurationWithoutError()
     {
@@ -54,10 +54,10 @@ final class TimerTest extends TestCase
     /**
      * @depends testCanBeStartedAndStoppedWithDuration
      *
-     * @expectedException \PhilKra\Exception\Timer\NotStoppedException
+     * @expectedException \Hotrush\Exception\Timer\NotStoppedException
      *
-     * @covers  \PhilKra\Helper\Timer::start
-     * @covers  \PhilKra\Helper\Timer::getDuration
+     * @covers  \Hotrush\Helper\Timer::start
+     * @covers  \Hotrush\Helper\Timer::getDuration
      */
     public function testCanBeStartedWithForcingDurationException()
     {
@@ -69,9 +69,9 @@ final class TimerTest extends TestCase
     /**
      * @depends testCanBeStartedWithForcingDurationException
      *
-     * @expectedException \PhilKra\Exception\Timer\NotStartedException
+     * @expectedException \Hotrush\Exception\Timer\NotStartedException
      *
-     * @covers  \PhilKra\Helper\Timer::stop
+     * @covers  \Hotrush\Helper\Timer::stop
      */
     public function testCannotBeStoppedWithoutStart()
     {

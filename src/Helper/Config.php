@@ -1,8 +1,8 @@
 <?php
 
-namespace PhilKra\Helper;
+namespace Hotrush\Helper;
 
-use \PhilKra\Exception\MissingAppNameException;
+use \Hotrush\Exception\MissingAppNameException;
 
 /**
  *

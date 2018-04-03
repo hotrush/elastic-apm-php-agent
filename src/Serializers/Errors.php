@@ -1,9 +1,9 @@
 <?php
 
-namespace PhilKra\Serializers;
+namespace Hotrush\Serializers;
 
-use \PhilKra\Helper\Config;
-use \PhilKra\Stores\ErrorsStore;
+use \Hotrush\Helper\Config;
+use \Hotrush\Stores\ErrorsStore;
 
 /**
  *
@@ -16,7 +16,7 @@ class Errors extends Entity implements \JsonSerializable
 {
 
     /**
-     * @var \PhilKra\Stores\ErrorsStore
+     * @var \Hotrush\Stores\ErrorsStore
      */
     private $store;
 

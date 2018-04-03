@@ -13,12 +13,12 @@
   },
   "autoload": {
     "psr-4": {
-      "PhilKra\\": "src/"
+      "Hotrush\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "PhilKra\\Tests\\": "tests/"
+      "Hotrush\\Tests\\": "tests/"
     }
   },
   "config": {
@@ -32,6 +32,10 @@
       "name": "Philip Krauss",
       "email": "philip@philipkrauss.at",
       "homepage": "https://github.com/philkra/elastic-apm-agent-php"
+    },
+    {
+      "name": "Roma Rush",
+      "homepage": "https://github.com/hotrush/elastic-apm-agent-php"
     }
   ]
 }
