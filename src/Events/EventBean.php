@@ -116,7 +116,7 @@ class EventBean
     /**
      * @return ContextsRegistry
      */
-    public function getContextRegistry(): ContextsRegistry
+    public function getContextsRegistry(): ContextsRegistry
     {
         return $this->contextsRegistry;
     }

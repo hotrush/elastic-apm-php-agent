@@ -65,6 +65,14 @@ class ContextsRegistry
     }
 
     /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
