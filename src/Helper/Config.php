@@ -27,7 +27,7 @@ class Config
      */
     public function __construct(array $config)
     {
-        if (isset($config['appName']) === false) {
+        if (!isset($config['appName'])) {
             throw new MissingAppNameException();
         }
 
