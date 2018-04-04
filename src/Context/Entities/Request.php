@@ -82,6 +82,13 @@ class Request implements EntityInterface
             'env' => $_SERVER,
         ];
 
+        if ($this->request['url']['search'] && strlen($this->request['url']['search']) > 1024) {
+            $this->request['url']['search'] = substr($this->request['url']['search'], 0, 1021).'...';
+        }
+        if ($this->request['url']['full'] && strlen($this->request['url']['full']) > 1024) {
+            $this->request['url']['full'] = substr($this->request['url']['full'], 0, 1021).'...';
+        }
+
         if (!empty($_COOKIE)) {
             $this->request['cookies'] = $_COOKIE;
         }
