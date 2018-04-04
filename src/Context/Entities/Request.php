@@ -80,8 +80,11 @@ class Request implements EntityInterface
             ],
             'headers' => $headers,
             'env' => $_SERVER,
-            'cookies' => $_COOKIE,
         ];
+
+        if (!empty($_COOKIE)) {
+            $this->request['cookies'] = $_COOKIE;
+        }
     }
 
     /**
