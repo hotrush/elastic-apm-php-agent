@@ -62,7 +62,7 @@ class Timer
             throw new NotStoppedException();
         }
 
-        return $this->toMicro($this->stoppedOn - $this->startedOn);
+        return $this->toMilli($this->stoppedOn - $this->startedOn);
     }
 
     /**
@@ -78,19 +78,18 @@ class Timer
         }
 
         return ($this->stoppedOn === null)
-            ? $this->toMicro(microtime(true) - $this->startedOn)
+            ? $this->toMilli(microtime(true) - $this->startedOn)
             : $this->getDuration();
     }
 
     /**
-     * Convert the Duration from Seconds to Micro-Seconds
+     * Convert the Duration from Seconds to Milli-Seconds
      *
-     * @param  float $num
+     * @param float $num
      * @return float
      */
-    private function toMicro(float $num): float
+    private function toMilli(float $num): float
     {
-        return $num * 1000000;
+        return $num * 1000;
     }
-
 }
