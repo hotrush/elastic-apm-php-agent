@@ -24,7 +24,7 @@ final class AgentTest extends TestCase
         // Create a Transaction, wait and Stop it
         $name = 'trx';
         $agent->startTransaction($name);
-        usleep(10);
+        usleep(10000);
         $agent->stopTransaction($name);
 
         $duration = $agent->getTransaction($name)->getDuration();

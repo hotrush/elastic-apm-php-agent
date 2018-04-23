@@ -23,7 +23,7 @@ final class TimerTest extends TestCase
         $duration = rand(25, 100);
 
         $timer->start();
-        usleep($duration);
+        usleep($duration * 1000);
         $timer->stop();
 
         $this->assertGreaterThanOrEqual($duration, $timer->getDuration());
@@ -43,7 +43,7 @@ final class TimerTest extends TestCase
         $timer = new Timer();
 
         $timer->start();
-        usleep(10);
+        usleep(10000);
         $elapsed = $timer->getElapsed();
         $timer->stop();
 
