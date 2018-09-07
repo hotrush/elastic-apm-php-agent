@@ -43,6 +43,11 @@ class Request implements EntityInterface
         }
     }
 
+    public function doNotSendEnv()
+    {
+        $this->request['env'] = [];
+    }
+
     /**
      * Extract request data from $_SERVER and $_COOKIE vars
      *
