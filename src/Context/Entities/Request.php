@@ -45,7 +45,7 @@ class Request implements EntityInterface
 
     public function doNotSendEnv()
     {
-        $this->request['env'] = [];
+        $this->request['env'] = null;
     }
 
     /**
