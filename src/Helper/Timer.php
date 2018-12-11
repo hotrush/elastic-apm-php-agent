@@ -51,6 +51,21 @@ class Timer
     }
 
     /**
+     * Get start time
+     *
+     * @return float
+     * @throws NotStoppedException
+     */
+    public function getStartedOn(): float
+    {
+        if ($this->stoppedOn === null) {
+            throw new NotStoppedException();
+        }
+
+        return $this->startedOn;
+    }
+
+    /**
      * Get the elapsed Duration of this Timer
      *
      * @throws \Hotrush\Exception\Timer\NotStoppedException

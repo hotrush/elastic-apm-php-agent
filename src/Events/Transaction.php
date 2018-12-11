@@ -124,6 +124,15 @@ class Transaction extends EventBean implements \JsonSerializable
     }
 
     /**
+     * @return float
+     * @throws \Hotrush\Exception\Timer\NotStoppedException
+     */
+    public function getTimerStartTime(): float
+    {
+        return $this->timer->getStartedOn();
+    }
+
+    /**
      * Serialize Transaction Event
      *
      * @return array
