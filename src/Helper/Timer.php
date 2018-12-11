@@ -54,12 +54,12 @@ class Timer
      * Get start time
      *
      * @return float
-     * @throws NotStoppedException
+     * @throws NotStartedException
      */
     public function getStartedOn(): float
     {
-        if ($this->stoppedOn === null) {
-            throw new NotStoppedException();
+        if ($this->startedOn === null) {
+            throw new NotStartedException();
         }
 
         return $this->startedOn;
