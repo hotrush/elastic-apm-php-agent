@@ -37,6 +37,11 @@ class Transaction extends EventBean implements \JsonSerializable
     private $duration = 0.0;
 
     /**
+     * @var array
+     */
+    private $spans = [];
+
+    /**
      * Create the Transaction
      *
      * @param string            $name
@@ -103,6 +108,22 @@ class Transaction extends EventBean implements \JsonSerializable
     }
 
     /**
+     * @param array $spans
+     */
+    public function setSpans(array $spans)
+    {
+        $this->spans = $spans;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSpans(): array
+    {
+        return $this->spans;
+    }
+
+    /**
      * Serialize Transaction Event
      *
      * @return array
@@ -117,6 +138,7 @@ class Transaction extends EventBean implements \JsonSerializable
             'type' => $this->getMetaType(),
             'result' => $this->getMetaResult(),
             'context' => $this->getContext(),
+            'spans' => $this->getSpans(),
         ];
     }
 

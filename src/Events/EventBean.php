@@ -110,7 +110,7 @@ class EventBean
      */
     protected final function getMetaResult(): string
     {
-        return (string)$this->meta['result'];
+        return (string) $this->meta['result'];
     }
 
     /**
