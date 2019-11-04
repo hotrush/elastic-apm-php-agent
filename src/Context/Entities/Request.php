@@ -11,10 +11,13 @@ class Request implements EntityInterface
 
     /**
      * Request constructor.
+     * @param bool $extract
      */
-    public function __construct()
+    public function __construct($extract = true)
     {
-        $this->extractRequestData();
+        if ($extract) {
+            $this->extractRequestData();
+        }
     }
 
     /**
@@ -104,7 +107,7 @@ class Request implements EntityInterface
      */
     public function isEmpty(): bool
     {
-        return false;
+        return empty($this->request);
     }
 
     /**

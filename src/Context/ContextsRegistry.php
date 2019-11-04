@@ -30,14 +30,18 @@ class ContextsRegistry
     private $custom;
 
     /**
-     * Contexts constructor.
+     * ContextsRegistry constructor.
+     * @param Request|null $request
+     * @param User|null $user
+     * @param Tags|null $tags
+     * @param Custom|null $custom
      */
-    public function __construct()
+    public function __construct(Request $request = null, User $user = null, Tags $tags = null, Custom $custom = null)
     {
-        $this->request = new Request();
-        $this->user = new User();
-        $this->tags = new Tags();
-        $this->custom = new Custom();
+        $this->request = $request ?: new Request();
+        $this->user = $user ?: new User();
+        $this->tags = $tags ?: new Tags();
+        $this->custom = $custom ?: new Custom();
     }
 
     /**
@@ -73,13 +77,15 @@ class ContextsRegistry
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function toArray(): array
+    public function toArray()
     {
-        $contexts = [
-            'request' => $this->request->toArray(),
-        ];
+        $contexts = [];
+
+        if (!$this->request->isEmpty()) {
+            $contexts['request'] = $this->request->toArray();
+        }
 
         if (!$this->user->isEmpty()) {
             $contexts['user'] = $this->user->toArray();
@@ -93,6 +99,6 @@ class ContextsRegistry
             $contexts['custom'] = $this->custom->toArray();
         }
 
-        return $contexts;
+        return $contexts ?: null;
     }
 }
